@@ -1,11 +1,16 @@
 package com.example.rollbasedlogin.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -13,17 +18,20 @@ public class User {
     private Long id;
 
     @NotBlank(message = "Username cannot be empty")
+    @Column(nullable = false)
     private String username;
 
-   // @Email(message = "Invalid email format")
-   // @NotBlank(message = "Email cannot be empty")
-    //@Column(unique = true)
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email cannot be empty")
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank(message = "Password cannot be empty")
+    @Column(nullable = false)
     private String password;
 
     @NotBlank(message = "Role is required")
+    @Column(nullable = false)
     private String role;
 
     // Getters & Setters
