@@ -1,0 +1,229 @@
+/* Auth Form Styles — adapted from Uiverse.io by micaelgomestavares */
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 30px;
+  width: 450px;
+  max-width: 100%;
+  border-radius: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.auth-form ::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ---- Heading ---- */
+.auth-form .form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.auth-form .form-subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+/* ---- Labels ---- */
+.auth-form .flex-column > label {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 2px;
+}
+
+.auth-form .flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ---- Input row with icon ---- */
+.auth-form .inputForm {
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  transition: 0.2s ease-in-out;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.auth-form .inputForm svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.auth-form .inputForm input,
+.auth-form .inputForm select {
+  margin-left: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 85%;
+  height: 100%;
+  font-size: 0.9rem;
+  background: transparent;
+  color: #ffffff;
+}
+
+.auth-form .inputForm input:focus,
+.auth-form .inputForm select:focus {
+  outline: none;
+}
+
+.auth-form .inputForm:focus-within {
+  border: 1.5px solid rgba(99, 148, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- Error alert ---- */
+.auth-form .auth-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: #fca5a5;
+  background-color: rgba(220, 38, 38, 0.15);
+  border-radius: 10px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.auth-form .auth-error svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ---- Submit button ---- */
+.auth-form .button-submit {
+  margin: 20px 0 10px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.auth-form .button-submit:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.auth-form .button-submit:disabled {
+  background: rgba(255, 255, 255, 0.15);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---- Bottom link ---- */
+.auth-form .auth-footer {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.auth-form .auth-footer .auth-link {
+  font-size: 14px;
+  margin-left: 5px;
+  color: #93b5ff;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+}
+
+.auth-form .auth-footer .auth-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Divider ---- */
+.auth-form .auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0;
+}
+
+.auth-form .auth-divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #ecedec;
+}
+
+.auth-form .auth-divider span {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* ---- Role select styling ---- */
+.auth-form .inputForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.auth-form .select-wrapper {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.auth-form .select-wrapper select {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.auth-form .select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 14px;
+  color: rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+  font-size: 14px;
+}
+
+/* Select option text (dropdown bg is browser-native, so keep dark) */
+.auth-form .inputForm select option {
+  background: #1b2735;
+  color: #ffffff;
+}

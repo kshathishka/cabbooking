@@ -11,6 +11,7 @@ import { Label } from '../ui/label';
 import { Badge } from '../ui/badge';
 import { Calendar, Plus, Clock } from 'lucide-react';
 import { toast } from 'sonner';
+import { WeatherWidget } from '../ui/WeatherWidget';
 
 export const HRDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -92,44 +93,41 @@ export const HRDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Live Weather Widget */}
+      <WeatherWidget />
+      
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Total Bookings</CardTitle>
-            <Calendar className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{bookings.length}</div>
-            <p className="text-xs text-gray-500">Your bookings</p>
-          </CardContent>
-        </Card>
+      <div className="glass-stats">
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Total Bookings</p>
+            <Calendar className="size-4" />
+          </div>
+          <p className="glass-card-value">{bookings.length}</p>
+          <p className="glass-card-desc">Your bookings</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Completed</CardTitle>
-            <Clock className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => b.completed).length}
-            </div>
-            <p className="text-xs text-gray-500">Finished trips</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Completed</p>
+            <Clock className="size-4" />
+          </div>
+          <p className="glass-card-value">
+            {bookings.filter(b => b.completed).length}
+          </p>
+          <p className="glass-card-desc">Finished trips</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Pending</CardTitle>
-            <Calendar className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {bookings.filter(b => !b.completed).length}
-            </div>
-            <p className="text-xs text-gray-500">Upcoming trips</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Pending</p>
+            <Calendar className="size-4" />
+          </div>
+          <p className="glass-card-value">
+            {bookings.filter(b => !b.completed).length}
+          </p>
+          <p className="glass-card-desc">Upcoming trips</p>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -149,8 +147,9 @@ export const HRDashboard: React.FC = () => {
               {isLoadingBookings ? (
                 <div className="text-center py-8 text-gray-500">Loading bookings...</div>
               ) : bookings.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  No bookings found. Create your first booking!
+                <div className="empty-state">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3"/><path d="M21 16v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                  <p>No bookings found. Create your first booking!</p>
                 </div>
               ) : (
                 <div className="overflow-x-auto">

@@ -10,6 +10,7 @@ import { Label } from '../ui/label';
 import { Badge } from '../ui/badge';
 import { Users, Car, Calendar, Plus, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { WeatherWidget } from '../ui/WeatherWidget';
 
 export const AdminDashboard: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -86,42 +87,39 @@ export const AdminDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Live Weather Widget */}
+      <WeatherWidget />
+      
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Total Bookings</CardTitle>
-            <Calendar className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{bookings.length}</div>
-            <p className="text-xs text-gray-500">All time bookings</p>
-          </CardContent>
-        </Card>
+      <div className="glass-stats">
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Total Bookings</p>
+            <Calendar className="size-4" />
+          </div>
+          <p className="glass-card-value">{bookings.length}</p>
+          <p className="glass-card-desc">All time bookings</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Total Drivers</CardTitle>
-            <Car className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{drivers.length}</div>
-            <p className="text-xs text-gray-500">Active drivers</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Total Drivers</p>
+            <Car className="size-4" />
+          </div>
+          <p className="glass-card-value">{drivers.length}</p>
+          <p className="glass-card-desc">Active drivers</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Available Drivers</CardTitle>
-            <Users className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              {drivers.filter(d => d.available).length}
-            </div>
-            <p className="text-xs text-gray-500">Ready for assignment</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Available Drivers</p>
+            <Users className="size-4" />
+          </div>
+          <p className="glass-card-value">
+            {drivers.filter(d => d.available).length}
+          </p>
+          <p className="glass-card-desc">Ready for assignment</p>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -142,7 +140,10 @@ export const AdminDashboard: React.FC = () => {
               {isLoadingBookings ? (
                 <div className="text-center py-8 text-gray-500">Loading bookings...</div>
               ) : bookings.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">No bookings found</div>
+                <div className="empty-state">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  <p>No bookings found</p>
+                </div>
               ) : (
                 <div className="overflow-x-auto">
                   <Table>
@@ -193,7 +194,10 @@ export const AdminDashboard: React.FC = () => {
               {isLoadingDrivers ? (
                 <div className="text-center py-8 text-gray-500">Loading drivers...</div>
               ) : drivers.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">No drivers found</div>
+                <div className="empty-state">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <p>No drivers found</p>
+                </div>
               ) : (
                 <Table>
                   <TableHeader>

@@ -6,8 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
-import { Calendar, CheckCircle, Clock, MapPin } from 'lucide-react';
+import { Calendar, CheckCircle, Clock, MapPin, Inbox } from 'lucide-react';
 import { toast } from 'sonner';
+import '../../../styles/trip-card.css';
+import { WeatherWidget } from '../ui/WeatherWidget';
 
 export const DriverDashboard: React.FC = () => {
   const { user } = useAuth();
@@ -65,40 +67,37 @@ export const DriverDashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Live Weather Widget */}
+      <WeatherWidget />
+      
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Total Trips</CardTitle>
-            <Calendar className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{trips.length}</div>
-            <p className="text-xs text-gray-500">All assigned trips</p>
-          </CardContent>
-        </Card>
+      <div className="glass-stats">
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Total Trips</p>
+            <Calendar className="size-4" />
+          </div>
+          <p className="glass-card-value">{trips.length}</p>
+          <p className="glass-card-desc">All assigned trips</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Active Trips</CardTitle>
-            <Clock className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{activeTrips.length}</div>
-            <p className="text-xs text-gray-500">Pending completion</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Active Trips</p>
+            <Clock className="size-4" />
+          </div>
+          <p className="glass-card-value">{activeTrips.length}</p>
+          <p className="glass-card-desc">Pending completion</p>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm">Completed</CardTitle>
-            <CheckCircle className="size-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{completedTrips.length}</div>
-            <p className="text-xs text-gray-500">Finished trips</p>
-          </CardContent>
-        </Card>
+        <div className="glass-card">
+          <div className="glass-card-header">
+            <p className="glass-card-title">Completed</p>
+            <CheckCircle className="size-4" />
+          </div>
+          <p className="glass-card-value">{completedTrips.length}</p>
+          <p className="glass-card-desc">Finished trips</p>
+        </div>
       </div>
 
       {/* Active Trips */}
@@ -111,63 +110,62 @@ export const DriverDashboard: React.FC = () => {
           {isLoadingTrips ? (
             <div className="text-center py-8 text-gray-500">Loading trips...</div>
           ) : activeTrips.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              No active trips at the moment
+            <div className="empty-state">
+              <Inbox />
+              <p>No active trips at the moment</p>
             </div>
           ) : (
             <div className="space-y-4">
               {activeTrips.map((trip) => (
-                <Card key={trip.id} className="border-l-4 border-l-blue-500">
-                  <CardContent className="pt-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="size-4 text-gray-500" />
-                          <div>
-                            <p className="text-sm text-gray-500">Pickup</p>
-                            <p className="font-medium">{trip.pickup}</p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="size-4 text-gray-500" />
-                          <div>
-                            <p className="text-sm text-gray-500">Drop</p>
-                            <p className="font-medium">{trip.dropLocation}</p>
-                          </div>
+                <div key={trip.id} className="trip-card">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="trip-route">
+                      <div className="trip-route-item">
+                        <MapPin />
+                        <div>
+                          <p className="trip-label">Pickup</p>
+                          <p className="trip-value">{trip.pickup}</p>
                         </div>
                       </div>
-                      
-                      <div className="space-y-2">
+                      <div className="trip-route-item">
+                        <MapPin />
                         <div>
-                          <p className="text-sm text-gray-500">Employee</p>
-                          <p className="font-medium">{trip.employeeName}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Pickup Time</p>
-                          <p className="font-medium">{new Date(trip.pickupTime).toLocaleString()}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500">Duration</p>
-                          <p className="font-medium">{trip.durationMin} minutes</p>
+                          <p className="trip-label">Drop</p>
+                          <p className="trip-value">{trip.dropLocation}</p>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t">
-                      <div className="flex items-center gap-2">
-                        <Badge>{trip.cabType}</Badge>
-                        {getStatusBadge(trip)}
+
+                    <div className="trip-details">
+                      <div className="trip-detail-item">
+                        <p className="trip-label">Employee</p>
+                        <p className="trip-value">{trip.employeeName}</p>
                       </div>
-                      <Button
-                        onClick={() => handleCompleteTrip(trip.id!)}
-                        disabled={completingTripId === trip.id}
-                      >
-                        <CheckCircle className="size-4 mr-2" />
-                        {completingTripId === trip.id ? 'Completing...' : 'Complete Trip'}
-                      </Button>
+                      <div className="trip-detail-item">
+                        <p className="trip-label">Pickup Time</p>
+                        <p className="trip-value">{new Date(trip.pickupTime).toLocaleString()}</p>
+                      </div>
+                      <div className="trip-detail-item">
+                        <p className="trip-label">Duration</p>
+                        <p className="trip-value">{trip.durationMin} minutes</p>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  <div className="trip-footer">
+                    <div className="flex items-center gap-2">
+                      <Badge>{trip.cabType}</Badge>
+                      {getStatusBadge(trip)}
+                    </div>
+                    <Button
+                      onClick={() => handleCompleteTrip(trip.id!)}
+                      disabled={completingTripId === trip.id}
+                    >
+                      <CheckCircle className="size-4 mr-2" />
+                      {completingTripId === trip.id ? 'Completing...' : 'Complete Trip'}
+                    </Button>
+                  </div>
+                </div>
               ))}
             </div>
           )}
@@ -182,8 +180,9 @@ export const DriverDashboard: React.FC = () => {
         </CardHeader>
         <CardContent>
           {completedTrips.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              No completed trips yet
+            <div className="empty-state">
+              <CheckCircle />
+              <p>No completed trips yet</p>
             </div>
           ) : (
             <div className="overflow-x-auto">

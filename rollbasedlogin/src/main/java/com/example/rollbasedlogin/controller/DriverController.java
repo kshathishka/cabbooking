@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class DriverController {
     }
 
     @PutMapping("/complete-trip/{bookingId}")
-public ResponseEntity<String> completeTrip(@PathVariable Long bookingId) {
+public ResponseEntity<String> completeTrip(@PathVariable @NonNull Long bookingId) {
     Optional<Booking> optional = this.bookingRepo.findById(bookingId);
     if (optional.isPresent()) {
         Booking booking = optional.get();

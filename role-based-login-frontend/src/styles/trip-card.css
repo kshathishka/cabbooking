@@ -1,0 +1,95 @@
+/* Trip Card — inset shadow style for individual trip items */
+
+.trip-card {
+  border-radius: 16px;
+  background: #f8f9fa;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    rgba(50, 50, 93, 0.3) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.35) 0px 18px 26px -18px inset,
+    rgba(50, 50, 93, 0.1) 0px 4px 12px 0px;
+}
+
+.trip-card .trip-route {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trip-card .trip-route-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.trip-card .trip-route-item svg {
+  width: 1rem;
+  height: 1rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.trip-card .trip-route-item .trip-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trip-card .trip-route-item .trip-value {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.trip-card .trip-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.trip-card .trip-detail-item .trip-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.trip-card .trip-detail-item .trip-value {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.trip-card .trip-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: #9ca3af;
+}
+
+.empty-state svg {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  color: #d1d5db;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+}
